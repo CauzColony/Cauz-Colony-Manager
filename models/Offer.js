@@ -10,12 +10,9 @@ var Offer = new keystone.List('Offer');
 
 Offer.add({
 	name: { type: Types.Text, required: true, index: true },
-  link: { type: Types.Url, required: true, initial: false },
-  text: { type: Types.Html, wysiwyg: true, required: true, initial: false },
-  image: { type: Types.CloudinaryImage, autoCleanup : true },
-  style: { type: Types.Text }
+  link: { type: Types.Url },
+  image: { type: Types.CloudinaryImage, autoCleanup : true }
 });
-
 
 /**
  * Registration

@@ -6,19 +6,23 @@ var keystone = require('keystone'),
  * ==========
  */
 
-var Charity = new keystone.List('Charity');
+var Answer = new keystone.List('Answer', {
+  noedit: true,
+  nocreate: true,
+  nodelete: true,
+  //hidden: true
+});
 
-Charity.add({
-	name: { type: Types.Text, required: true, index: true },
-  logo: { type: Types.CloudinaryImage, autoCleanup : true, note: 'sized to exactly 600x280 on a white background'}
+Answer.add({
+	questionId: { type: Types.Text, required: true },
+  answer: { type: Types.Text, required: true },
+  date: { type: Types.Date, default: Date.now }
 });
 
 /**
  * Registration
  */
-
-Charity.defaultColumns = 'name, active, public';
-Charity.register();
+Answer.register();
 
 
 

@@ -18,8 +18,7 @@
  * http://expressjs.com/api.html#app.VERB
  */
 
-var _ = require('underscore'),
-	keystone = require('keystone'),
+var keystone = require('keystone'),
 	middleware = require('./middleware'),
 	importRoutes = keystone.importer(__dirname);
 
@@ -36,8 +35,12 @@ var routes = {
 exports = module.exports = function(app) {
 	
 	// Views
-	app.get('/', routes.views.index);
-	
+  app.get('/', routes.views.index);
+  app.get('/api/projects', keystone.initAPI, routes.views.api.projects);
+  app.post('/api/project-by-id', keystone.initAPI, routes.views.api.projectById);
+  app.post('/api/answers', keystone.initAPI, routes.views.api.answers);
+  app.options('/api/project-by-id', keystone.initAPI, routes.views.api.projectByIdOptions);
+  app.get('/reports', keystone.initAPI, routes.views.reports.index);
 	
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

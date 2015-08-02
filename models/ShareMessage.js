@@ -6,20 +6,21 @@ var keystone = require('keystone'),
  * ==========
  */
 
-var UserList = new keystone.List('UserList');
+var ShareMessage = new keystone.List('ShareMessage');
 
-UserList.add({
+ShareMessage.add({
 	name: { type: Types.Text, required: true, index: true },
-  file: { type: Types.S3File }
+  subject: { type: Types.Text },
+  message: { type: Types.Text },
+  link: { type: Types.Url },
+  image: { type: Types.CloudinaryImage, autoCleanup : true }
 });
-
 
 /**
  * Registration
  */
 
-UserList.defaultColumns = 'name, active, public';
-UserList.register();
+ShareMessage.register();
 
 
 

@@ -12,13 +12,15 @@ Project.add({
 	name: { type: Types.Text, required: true, index: true },
 	charity: { type: Types.Relationship, ref: 'Charity' },
 	offer: { type: Types.Relationship, ref: 'Offer' },
-	survey: { type: Types.Relationship, ref: 'Survey' },
-	active: { type: Types.Boolean, default: true },
-	openProject: { type: Types.Boolean, default: true },
-	userList: { type: Types.Relationship, ref: 'UserList', dependsOn: { openProject: false } }
+  shareMessage: { type: Types.Relationship, ref: 'ShareMessage' },
+  active: { type: Types.Boolean, 'default': true },
+	testing: { type: Types.Boolean, 'default': false },
+	//openProject: { type: Types.Boolean, 'default': true },
+	//userList: { type: Types.Relationship, ref: 'UserList', dependsOn: { openProject: false } }
 });
 
 Project.defaultColumns = 'name, active, openProject';
+Project.relationship({ path: 'steps', ref: 'Step', refPath: 'project' });
 Project.register();
 
 

@@ -8,9 +8,9 @@
  * modules in your project's /lib directory.
  */
 
-var _ = require('underscore'),
-	querystring = require('querystring'),
-	keystone = require('keystone');
+var _ = require('underscore');
+	//querystring = require('querystring'),
+	//keystone = require('keystone');
 
 
 /**
@@ -26,7 +26,8 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 	
 	locals.navLinks = [
-		{ label: 'Home',		key: 'home',		href: '/' }
+    { label: 'Home',    key: 'home',    href: '/' },
+		{ label: 'Reports',		key: 'reports',		href: '/reports' }
 	];
 	
 	locals.user = req.user;

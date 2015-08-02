@@ -6,10 +6,21 @@ var keystone = require('keystone'),
  * ==========
  */
 
-var Survey = new keystone.List('Survey');
+var Step = new keystone.List('Step', {
+  sortable: true,
+  sortContext: 'Project:steps'
+});
 
-Survey.add({
-	name: { type: Types.Text, required: true, index: true }
+Step.add({
+	name: { type: Types.Text, required: true, index: true },
+  text: { type: Types.Html, wysiwyg: true, height: 150 },
+  type: { type: Types.Select, options: [{ label:'Question - Rating', value: 'survey.rating'}, { label:'Question - Multiple Choice', value: 'survey.multiple-choice'},{ label:'Question - Open Field', value: 'survey.open'}, { label:'Video', value: 'video'}], emptyOption: false },
+  optionA: { type: Types.Text, dependsOn: { type: ['survey.multiple-choice'] } },
+  optionB: { type: Types.Text, dependsOn: { type: ['survey.multiple-choice'] } },
+  optionC: { type: Types.Text, dependsOn: { type: ['survey.multiple-choice'] } },
+  optionD: { type: Types.Text, dependsOn: { type: ['survey.multiple-choice'] } },
+  videoId: { type: Types.Text , dependsOn: { type: ['video'] } },
+  project: { type: Types.Relationship, ref: 'Project' }
 });
 
 
@@ -17,8 +28,8 @@ Survey.add({
  * Registration
  */
 
-Survey.defaultColumns = 'name, active, public';
-Survey.register();
+Step.defaultColumns = 'name, active, public';
+Step.register();
 
 
 
