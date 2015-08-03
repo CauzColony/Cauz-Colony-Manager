@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
-    Answer = keystone.list('Answer').model;
+    Answer = keystone.list('Answer').model,
+    AnswerSet = keystone.list('AnswerSet').model;
 
 
 exports = module.exports = function(req, res) {
@@ -17,10 +18,21 @@ exports = module.exports = function(req, res) {
   view.render(function() {
     if(answers && answers instanceof Array)
     {
-      for (var i = answers.length - 1; i >= 0; i--) 
+      var setAnswers = [];
+      for (var i = 0; i < answers.length; i++)
       {
         var answer = new Answer(answers[i]);
         answer.save(function(e){
+          if (e) return res.apiError('error', e);
+        })
+
+        setAnswers.push(answer);
+      }
+
+      if(req.body.project)
+      {
+        var set = new AnswerSet({project: req.body.project, answers: setAnswers})
+        set.save(function(e){
           if (e) return res.apiError('error', e);
         })
       }

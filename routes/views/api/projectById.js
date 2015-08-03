@@ -39,10 +39,10 @@ exports = module.exports = function(req, res) {
     
     keystone.list('Project').model.find({_id: id}).populate(['charity', 'offer', 'shareMessage']).sort('sortOrder').exec(function(e, project){
       if (e) return res.apiError('error', e);
-      res.setHeader('Access-Control-Allow-Origin', '*');
 
       project = project[0];
 
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.apiResponse({
         title: project.name,
         id: id,

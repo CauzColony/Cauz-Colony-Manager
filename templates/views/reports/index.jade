@@ -2,5 +2,9 @@ extends ../../layouts/default
 
 block content
   .container: .jumbotron
-    img(src='/images/logo.svg', width='160')
-    h1 Reports
+    h1 #{section} for:
+    form(action='/report-by-id/', method='get')
+      select(name='project')
+        each project in projects
+          option(value=project._id) #{project.name}
+      input(type='submit',value='Go')

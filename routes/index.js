@@ -39,8 +39,11 @@ exports = module.exports = function(app) {
   app.get('/api/projects', keystone.initAPI, routes.views.api.projects);
   app.post('/api/project-by-id', keystone.initAPI, routes.views.api.projectById);
   app.post('/api/answers', keystone.initAPI, routes.views.api.answers);
+  app.get('/reports', middleware.requireUser, routes.views.reports.index);
+  app.get('/report-by-id', middleware.requireUser, routes.views.reports.reportById);
   app.options('/api/project-by-id', keystone.initAPI, routes.views.api.projectByIdOptions);
-  app.get('/reports', keystone.initAPI, routes.views.reports.index);
+  app.options('/api/projects', keystone.initAPI, routes.views.api.projectByIdOptions);
+  app.options('/api/answers', keystone.initAPI, routes.views.api.projectByIdOptions);
 	
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
